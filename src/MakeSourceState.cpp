@@ -33,13 +33,13 @@ bool MakeSourceState::parse(int argc, char **argv) {
 	
 	switch(c) {
 	case 'v':
-	    //std::cout << "verbose" << std::endl;
+	    m_OutputLevel = OutputLevel::Verbose;
 	    break;
 	case 'b':
-	    //std::cout << "brief" << std::endl;
+	    m_OutputLevel = OutputLevel::Brief;
 	    break;
 	case 'q':
-	    //std::cout << "quiet" << std::endl;
+	    m_OutputLevel = OutputLevel::Quiet;
 	    break;
 	case 'L':
 	    m_LicenseName = optarg;
