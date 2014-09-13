@@ -14,6 +14,8 @@ OBJECTS := $(patsubst ${SRC}/%.cpp, ${BIN}/%.o, $(wildcard ${SRC}/*.cpp))
 
 all: ${BIN}/${EXEC}
 
+clean:
+	rm -f ${BIN}/*
 
 ${BIN}/${EXEC}: ${OBJECTS}
 	${CXX} ${LINKFLAGS} -o ${BIN}/${EXEC} ${OBJECTS}
