@@ -31,3 +31,8 @@ std::string util::GetHomeDirectory() {
     }
     return std::string(homestr);
 }
+
+std::string util::GetEnv(const char *name) {
+    const char *value = std::getenv(name);
+    return ((value == nullptr) ? std::string() : std::string(value));
+}
