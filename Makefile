@@ -16,20 +16,23 @@ all: ${BIN}/${EXEC}
 
 clean:
 	rm -f ${BIN}/*
+	rm -f ${SRC}/*.cc
+	rm -f ${INC}/*.hh
 
-${BIN}/${EXEC}: ${OBJECTS} ${BIN}/parser.o ${BIN}/lexer.o
-	${CXX} ${LINKFLAGS} -o ${BIN}/${EXEC} ${OBJECTS} ${BIN}/lexer.o ${BIN}/parser.o
+${BIN}/${EXEC}: ${BIN}/language-parser.o ${BIN}/language-lexer.o ${OBJECTS}
+	${CXX} ${LINKFLAGS} -o ${BIN}/${EXEC} ${OBJECTS} ${BIN}/language-lexer.o ${BIN}/language-parser.o
 
-${SRC}/parser.tab.c: ${SRC}/parser.y
-	bison --defines=${INC}/parser.tab.h -o ${SRC}/parser.tab.c ${SRC}/parser.y
+${SRC}/language-parser.tab.cc: ${SRC}/language-parser.yy
+	bison --defines=${INC}/language-parser.tab.hh -o ${SRC}/language-parser.tab.cc ${SRC}/language-parser.yy
+	mv ${SRC}/*.hh ${INC}/
 
-${SRC}/lexer.tab.c: ${SRC}/lexer.lex
-	flex -o ${SRC}/lexer.tab.c ${SRC}/lexer.lex
+${SRC}/language-lexer.tab.cc: ${SRC}/language-lexer.ll
+	flex -o ${SRC}/language-lexer.tab.cc ${SRC}/language-lexer.ll
 
-${BIN}/parser.o: ${SRC}/parser.tab.c
-	${CXX} ${CXXFLAGS} -Wno-write-strings -c -o $@ $<
+${BIN}/language-parser.o: ${SRC}/language-parser.tab.cc
+	${CXX} ${CXXFLAGS} -c -o $@ $<
 
-${BIN}/lexer.o: ${SRC}/lexer.tab.c
+${BIN}/language-lexer.o: ${SRC}/language-lexer.tab.cc
 	${CXX} ${CXXFLAGS} -c -o $@ $<
 
 ${BIN}/%.o: ${SRC}/%.cpp

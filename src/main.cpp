@@ -2,11 +2,8 @@
 #include <iostream>
 #include <string>
 
-#include <stdio.h>
-#include <sys/types.h>
-#include <dirent.h>
-
 #include "MakeSourceState.hpp"
+#include "ParserState.hpp"
 #include "Util.hpp"
 
 using namespace mksrc;
@@ -26,14 +23,16 @@ int main(int argc, char **argv) {
     std::cout << "User License Directory: \"" << user_licenses << "\"" <<
         std::endl;
     
+    ParserState parser;
     std::vector<std::string> files = util::ListDirectory(user_languages);
-    if(files.size() == 0) {
-        std::cout << "No Language Files" << std::endl;
-    }else {
-        std::cout << "Language Files:" << std::endl;
-        for(std::string &file : files) {
-            std::cout << "  " << file << std::endl;
-        }
+    for(const std::string &fname : files) {
+        parser.parse(fname);
     }
+    
+    const std::vector<Language> &languages = parser.languages();
+    for(const Language &lang : languages) {
+        std::cout << lang;
+    }
+    
     return 0;
 }

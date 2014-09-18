@@ -30,5 +30,5 @@
 mksrc
 
 # Bison output
-*.tab.c
-*.tab.h
+*.tab.*
+*.hh

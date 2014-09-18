@@ -1,5 +1,8 @@
 
 #include "MakeSourceState.hpp"
+
+#include <cstdio>
+#include <iostream>
 #include <getopt.h>
 
 using namespace mksrc;
