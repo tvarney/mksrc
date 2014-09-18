@@ -24,7 +24,8 @@ int main(int argc, char **argv) {
         std::endl;
     
     ParserState parser;
-    std::vector<std::string> files = util::ListDirectory(user_languages);
+    std::vector<std::string> files = util::ListDirectory("/etc/mksrc/lang/");
+    util::ListDirectory(user_languages, files);
     for(const std::string &fname : files) {
         parser.parse(fname);
     }

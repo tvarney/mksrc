@@ -65,3 +65,22 @@ std::vector<std::string> util::ListDirectory(const std::string &dirname) {
     }
     return files;
 }
+
+std::size_t util::ListDirectory(const std::string &dirname,
+                                std::vector<std::string> file_list)
+{
+    std::size_t added = 0;
+    DIR *dir = opendir(dirname.data());
+    if(dir != nullptr) {
+        dirent *entry;
+        while((entry = readdir(dir)) != nullptr) {
+            if(strcmp(".", entry->d_name) != 0 &&
+               strcmp("..", entry->d_name) != 0)
+            {
+                files.emplace_back(util::Join(dirname, entry->d_name));
+                added += 1;
+            }
+        }
+    }
+    return added;
+}
