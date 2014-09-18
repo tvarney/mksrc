@@ -27,3 +27,8 @@
 *.out
 *.app
 ./bin/*
+mksrc
+
+# Bison output
+*.tab.c
+*.tab.h
