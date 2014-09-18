@@ -59,7 +59,7 @@ std::vector<std::string> util::ListDirectory(const std::string &dirname) {
             if(strcmp(".", entry->d_name) != 0 &&
                strcmp("..", entry->d_name) != 0)
             {
-                files.emplace_back(entry->d_name);
+                files.emplace_back(util::Join(dirname, entry->d_name));
             }
         }
     }
