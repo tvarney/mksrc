@@ -1,25 +1,10 @@
 
 language {
-  shortname = "C header";
-  longname = "C header file";
-  
-  suffix = ["h"];
-  
-  comment-line = "//";
-  comment-start = "/*";
-  comment-fill = " *";
-  comment-end = " */";
-  
-  doc-line = "///";
-  doc-start = "/**";
-  doc-fill = " *";
-  doc-end = " */";
-}
-language {
-  shortname = "C source";
+  shortname = "C";
   longname = "C source file";
   
   suffix = ["c"];
+  suffix[1] = ["h"];
   
   comment-line = "//";
   comment-start = "/*";

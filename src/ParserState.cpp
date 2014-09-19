@@ -43,3 +43,10 @@ void ParserState::error(const std::string &message) {
 std::string & ParserState::file() {
     return m_FileName;
 }
+
+int ParserState::getSuffixIndex() const {
+	return m_SuffixIndex;
+}
+void ParserState::setSuffixIndex(int index) {
+	m_SuffixIndex = index;
+}

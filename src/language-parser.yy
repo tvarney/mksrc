@@ -68,11 +68,15 @@ language:
 
 
 lang_assignment:
-    lang_name STATEMENT_END lang_assignment
-  | lang_suffixes STATEMENT_END lang_assignment
-  | lang_comment STATEMENT_END lang_assignment
-  | lang_doc STATEMENT_END lang_assignment
+    assignment_type STATEMENT_END lang_assignment
   | 
+    ;
+
+assignment_type:
+    lang_name
+  | lang_suffixes
+  | lang_comment
+  | lang_doc
     ;
 
 lang_name:
@@ -85,15 +89,20 @@ lang_name:
     ;
 
 lang_suffixes:
-    SUFFIXES ASSIGN OPEN_LIST suffix_list CLOSE_LIST
+    SUFFIXES ASSIGN {
+	    state.setSuffixIndex(0);
+	} OPEN_LIST suffix_list CLOSE_LIST
+  | SUFFIXES OPEN_LIST NUMBER {
+		state.setSuffixIndex(yylval.y_num);
+	} CLOSE_LIST ASSIGN OPEN_LIST suffix_list CLOSE_LIST
     ;
 
 suffix_list:
     suffix_list LIST_SEP STRING {
-        state.current().suffixes.push_back(yylval.y_str);
+		state.current().addSuffix(state.getSuffixIndex(), yylval.y_str);
     }
   | STRING {
-      state.current().suffixes.push_back(yylval.y_str);
+	  state.current().addSuffix(state.getSuffixIndex(), yylval.y_str);
     }
     ;
 

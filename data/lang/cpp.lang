@@ -1,28 +1,10 @@
 
-# C++ Header file
-language {
-    shortname = "C++";
-    longname = "C++ header file";
-    
-    suffix = ["H", "hpp", "hxx", "hh", "h++"];
-    
-    comment-line = "//";
-    comment-start = "/*";
-    comment-fill = " *";
-    comment-end = " */";
-    
-    doc-line = "///";
-    doc-start = "/**";
-    doc-fill = " *";
-    doc-end = " */";
-}
-
-# C++ Source (implementation) file
 language {
     shortname = "C++";
     longname = "C++ source file";
     
-    suffix = ["C", "cpp", "cxx", "cc", "c++"];
+	suffix[0] = ["C", "cpp", "cxx", "Cxx", "cc", "c++"];
+    suffix[1] = ["H", "hpp", "hxx", "Hxx", "hh", "h++"];
     
     comment-line = "//";
     comment-start = "/*";
