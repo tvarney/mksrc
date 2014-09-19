@@ -30,10 +30,10 @@ ${SRC}/language-lexer.tab.cc: ${SRC}/language-lexer.ll
 	flex -o ${SRC}/language-lexer.tab.cc ${SRC}/language-lexer.ll
 
 ${BIN}/language-parser.o: ${SRC}/language-parser.tab.cc
-	${CXX} ${CXXFLAGS} -c -o $@ $<
+	${CXX} -Wno-deprecated-register --std=c++11 -I${INC} -c -o $@ $<
 
 ${BIN}/language-lexer.o: ${SRC}/language-lexer.tab.cc
-	${CXX} ${CXXFLAGS} -c -o $@ $<
+	${CXX} -Wno-deprecated-register --std=c++11 -I${INC} -c -o $@ $<
 
 ${BIN}/%.o: ${SRC}/%.cpp
 	${CXX} ${CXXFLAGS} -c -o $@ $<
