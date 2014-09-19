@@ -1,7 +1,6 @@
 
-language {
-  shortname = "C";
-  longname = "C source file";
+language "C" {
+  description = "C source file";
   
   suffix = ["c"];
   suffix[1] = ["h"];

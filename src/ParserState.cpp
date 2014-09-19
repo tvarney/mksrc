@@ -7,18 +7,28 @@
 using namespace mksrc;
 
 ParserState::ParserState() :
-    m_TraceScanning(false), m_TraceParsing(false)
+    m_TraceScanning(false), m_TraceParsing(false),
+    m_CurrentLanguage(nullptr)
 { }
 ParserState::~ParserState() { }
 
-Language & ParserState::create() {
-    m_Languages.emplace_back();
-    return current();
+Language & ParserState::create(const std::string &shortname) {
+    m_CurrentLanguage = &(m_Languages[shortname]);
+    m_CurrentLanguage->name = shortname;
+    return *m_CurrentLanguage;
 }
+
 Language & ParserState::current() {
-    return m_Languages.back();
+    static Language _s_scratch;
+    if(m_CurrentLanguage == nullptr) {
+        return _s_scratch;
+    }
+    return *m_CurrentLanguage;
 }
-std::vector<Language> & ParserState::languages() {
+std::map<std::string, Language> & ParserState::languages() {
+    return m_Languages;
+}
+const std::map<std::string, Language> & ParserState::languages() const {
     return m_Languages;
 }
 

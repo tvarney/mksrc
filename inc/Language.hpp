@@ -12,7 +12,7 @@ namespace mksrc {
         typedef std::map<int, StringList> SuffixMap;
         typedef std::map<int, std::string> BodyFileMap;
         
-        std::string shortname, longname;
+        std::string name, description;
         std::string doctype;
         SuffixMap suffix;
         std::string comment_line, comment_start, comment_fill, comment_end;
@@ -44,9 +44,8 @@ namespace mksrc {
     "  " name " = \"" << strval << "\"\n"
     template <typename Insertable>
     Insertable & operator<<(Insertable &out, const Language &lang) {
-        out << "language {\n" <<
-            MKSRC_OUT_ASSIGN("short-name", lang.shortname) <<
-            MKSRC_OUT_ASSIGN("long-name", lang.longname) <<
+        out << "language \"" << lang.name << "\" {\n" <<
+            MKSRC_OUT_ASSIGN("description", lang.description) <<
             "  suffix = " << lang.suffix << "\n" <<
             MKSRC_OUT_ASSIGN("comment-line", lang.comment_line) <<
             MKSRC_OUT_ASSIGN("comment-start", lang.comment_start) << 

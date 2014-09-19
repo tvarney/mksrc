@@ -2,8 +2,8 @@
 #ifndef MKSRC_PARSER_STATE_HPP
 #define MKSRC_PARSER_STATE_HPP
 
+#include <map>
 #include <string>
-#include <vector>
 #include "Language.hpp"
 #include "language-parser.tab.hh"
 
@@ -21,8 +21,9 @@ namespace mksrc {
         virtual ~ParserState();
         
         Language & current();
-        Language & create();
-        std::vector<Language> & languages();
+        Language & create(const std::string &shortname);
+        std::map<std::string, Language> & languages();
+        const std::map<std::string, Language> & languages() const;
         
         void scan_begin();
         void scan_end();
@@ -37,10 +38,12 @@ namespace mksrc {
         int getSuffixIndex() const;
         void setSuffixIndex(int index);
     protected:
-        std::string m_FileName;;
+        std::string m_FileName;
         
         bool m_TraceScanning, m_TraceParsing;
-        std::vector<Language> m_Languages;
+        std::map<std::string, Language> m_Languages;
+        Language *m_CurrentLanguage;
+        
         int m_SuffixIndex;
     };
 }

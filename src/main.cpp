@@ -22,9 +22,9 @@ int main(int argc, char **argv) {
         parser.parse(fname);
     }
     
-    const std::vector<Language> &languages = parser.languages();
-    for(const Language &lang : languages) {
-        std::cout << lang;
+    const std::map<std::string, Language> &languages = parser.languages();
+    for(const std::pair<std::string, Language> &lang : languages) {
+        std::cout << lang.second;
     }
     
     return 0;

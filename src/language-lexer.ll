@@ -46,8 +46,7 @@ blank [ \t]
 ";" return token::STATEMENT_END;
 
 "language"      return token::LANGUAGE;
-"shortname"     return token::SHORTNAME;
-"longname"      return token::LONGNAME;
+"description"   return token::DESCRIPTION;
 "suffix"        return token::SUFFIXES;
 "comment-line"  return token::COMMENT_LINE;
 "comment-start" return token::COMMENT_START;

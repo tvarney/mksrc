@@ -32,6 +32,7 @@ namespace mksrc {
 
 %token END 0 "end of file"
 %token ASSIGN "="
+%token APPEND "+="
 %token LIST_SEP ","
 %token OPEN_LIST "["
 %token CLOSE_LIST "]"
@@ -43,8 +44,7 @@ namespace mksrc {
 %token BOOLEAN "bool"
 %token LANGUAGE "language"
 %token ERROR "ERROR"
-%token SHORTNAME "shortname"
-%token LONGNAME "longname"
+%token DESCRIPTION "description"
 %token SUFFIXES "suffix"
 %token COMMENT_LINE "comment-line"
 %token COMMENT_START "comment-start"
@@ -62,7 +62,9 @@ file:
   ;
 
 language:
-    LANGUAGE OPEN_SCOPE { state.create(); } lang_assignment CLOSE_SCOPE
+    LANGUAGE STRING {
+        state.create(yylval.y_str);
+    } OPEN_SCOPE lang_assignment CLOSE_SCOPE
     ;
 
 
@@ -72,28 +74,32 @@ lang_assignment:
   ;
 
 assignment_type:
-    lang_name
+    DESCRIPTION ASSIGN STRING {
+        state.current().description = yylval.y_str;
+    }
   | lang_suffixes
   | lang_comment
   | lang_doc
     ;
 
-lang_name:
-    SHORTNAME ASSIGN STRING {
-        state.current().shortname = yylval.y_str;
-    }
-  | LONGNAME ASSIGN STRING {
-      state.current().longname = yylval.y_str;
+lang_suffixes:
+    SUFFIXES suffix_index suffix_assignment OPEN_LIST suffix_list CLOSE_LIST
+    ;
+
+suffix_index:
+    OPEN_LIST NUMBER {
+        state.setSuffixIndex(yylval.y_num);
+    } CLOSE_LIST
+  | {
+        state.setSuffixIndex(0);
     }
     ;
 
-lang_suffixes:
-    SUFFIXES ASSIGN {
-        state.setSuffixIndex(0);
-    } OPEN_LIST suffix_list CLOSE_LIST
-  | SUFFIXES OPEN_LIST NUMBER {
-        state.setSuffixIndex(yylval.y_num);
-    } CLOSE_LIST ASSIGN OPEN_LIST suffix_list CLOSE_LIST
+suffix_assignment:
+    APPEND
+  | ASSIGN {
+        state.current().suffix[state.getSuffixIndex()].clear();
+    }
     ;
 
 suffix_list:

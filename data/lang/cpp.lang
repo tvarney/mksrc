@@ -1,9 +1,8 @@
 
-language {
-    shortname = "C++";
-    longname = "C++ source file";
+language "C++" {
+    description = "C++ source file";
     
-	suffix[0] = ["C", "cpp", "cxx", "Cxx", "cc", "c++"];
+    suffix[0] = ["C", "cpp", "cxx", "Cxx", "cc", "c++"];
     suffix[1] = ["H", "hpp", "hxx", "Hxx", "hh", "h++"];
     
     comment-line = "//";
