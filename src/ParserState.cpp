@@ -12,7 +12,6 @@ ParserState::ParserState() :
 ParserState::~ParserState() { }
 
 Language & ParserState::create() {
-    std::cerr << "Creating new language" << std::endl;
     m_Languages.emplace_back();
     return current();
 }
