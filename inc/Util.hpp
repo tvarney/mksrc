@@ -13,6 +13,8 @@ namespace mksrc {
         std::size_t ListDirectory(const std::string &dirname,
                                   std::vector<std::string> &file_list);
         std::vector<std::string> ListDirectory(const std::string &dirname);
+        
+        const char * GetExtension(const char *filename);
     }
 }
 

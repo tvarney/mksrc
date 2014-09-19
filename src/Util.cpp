@@ -84,3 +84,25 @@ std::size_t util::ListDirectory(const std::string &dirname,
     }
     return added;
 }
+
+const char * util::GetExtension(const char *filename) {
+    const char *last_dot = nullptr;
+    const char *last_sep = filename - 1;
+    while(*filename != '\0') {
+        switch(*filename) {
+        case '.':
+            // Encountered a '.', guess that this is an extension
+            last_dot = filename;
+            break;
+        case '/':
+            // Encountered a path seperator, clear our guess at the extension
+            // and save our last seperator
+            last_sep = filename;
+            last_dot = nullptr;
+            break;
+        }
+        filename += 1;
+    }
+    return ((last_dot == nullptr) ? nullptr :
+            ((last_dot == last_sep + 1) ? nullptr : last_dot + 1));
+}

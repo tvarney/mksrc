@@ -85,3 +85,11 @@ void MakeSourceState::report_languages() const {
         std::cout << pairs.second << std::endl;
     }
 }
+
+void MakeSourceState::create_files() {
+    for(const std::string &fname : m_FileNames) {
+        const char *ext = util::GetExtension(fname.data());
+        std::cout << "Filename: \"" << fname << "\" -> \"" <<
+            (ext == nullptr ? "none" : ext) << "\"" << std::endl;
+    }
+}
