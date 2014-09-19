@@ -15,17 +15,10 @@ int main(int argc, char **argv) {
     std::string user_languages = util::Join(user_config, "lang/");
     std::string user_licenses = util::Join(user_config, "license/");
     
-    ParserState parser;
-    std::vector<std::string> files = util::ListDirectory("/etc/mksrc/lang/");
-    util::ListDirectory(user_languages, files);
-    for(const std::string &fname : files) {
-        parser.parse(fname);
-    }
+    state.parse_languages("/etc/mksrc/lang/");
+    state.parse_languages(user_languages);
     
-    const std::map<std::string, Language> &languages = parser.languages();
-    for(const std::pair<std::string, Language> &lang : languages) {
-        std::cout << lang.second;
-    }
+    state.report_languages();
     
     return 0;
 }

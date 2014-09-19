@@ -5,6 +5,8 @@
 #include <iostream>
 #include <getopt.h>
 
+#include "Util.hpp"
+
 using namespace mksrc;
 
 static const char * g_NoLicense = "none";
@@ -67,4 +69,19 @@ bool MakeSourceState::parse(int argc, char **argv) {
 
 bool MakeSourceState::parse(const char * filename) {
     return false;
+}
+
+bool MakeSourceState::parse_languages(const std::string &directory) {
+    std::vector<std::string> files = util::ListDirectory(directory);
+    for(const std::string &filename : files) {
+        m_Parser.parse(filename);
+    }
+    return true;
+}
+
+void MakeSourceState::report_languages() const {
+    auto &languages = m_Parser.languages();
+    for(auto &pairs : languages) {
+        std::cout << pairs.second << std::endl;
+    }
 }
