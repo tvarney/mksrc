@@ -58,8 +58,7 @@ namespace mksrc {
 %%
 
 file:
-    file language
-  | language
+  | file language
   ;
 
 language:
@@ -68,9 +67,9 @@ language:
 
 
 lang_assignment:
-    assignment_type STATEMENT_END lang_assignment
-  | 
-    ;
+  | lang_assignment assignment_type STATEMENT_END
+  | lang_assignment assignment_type
+  ;
 
 assignment_type:
     lang_name
@@ -90,19 +89,19 @@ lang_name:
 
 lang_suffixes:
     SUFFIXES ASSIGN {
-	    state.setSuffixIndex(0);
-	} OPEN_LIST suffix_list CLOSE_LIST
+        state.setSuffixIndex(0);
+    } OPEN_LIST suffix_list CLOSE_LIST
   | SUFFIXES OPEN_LIST NUMBER {
-		state.setSuffixIndex(yylval.y_num);
-	} CLOSE_LIST ASSIGN OPEN_LIST suffix_list CLOSE_LIST
+        state.setSuffixIndex(yylval.y_num);
+    } CLOSE_LIST ASSIGN OPEN_LIST suffix_list CLOSE_LIST
     ;
 
 suffix_list:
     suffix_list LIST_SEP STRING {
-		state.current().addSuffix(state.getSuffixIndex(), yylval.y_str);
+        state.current().addSuffix(state.getSuffixIndex(), yylval.y_str);
     }
   | STRING {
-	  state.current().addSuffix(state.getSuffixIndex(), yylval.y_str);
+        state.current().addSuffix(state.getSuffixIndex(), yylval.y_str);
     }
     ;
 
@@ -111,13 +110,13 @@ lang_comment:
         state.current().comment_line = yylval.y_str;
     }
   | COMMENT_START ASSIGN STRING {
-      state.current().comment_start = yylval.y_str;
+        state.current().comment_start = yylval.y_str;
     }
   | COMMENT_FILL ASSIGN STRING {
-      state.current().comment_fill = yylval.y_str;
+        state.current().comment_fill = yylval.y_str;
     }
   | COMMENT_END ASSIGN STRING {
-      state.current().comment_end = yylval.y_str;
+        state.current().comment_end = yylval.y_str;
     }
     ;
 
@@ -126,17 +125,18 @@ lang_doc:
         state.current().doc_line = yylval.y_str;
     }
   | DOC_START ASSIGN STRING {
-      state.current().doc_start = yylval.y_str;
+        state.current().doc_start = yylval.y_str;
     }
   | DOC_FILL ASSIGN STRING {
-      state.current().doc_fill = yylval.y_str;
+        state.current().doc_fill = yylval.y_str;
     }
   | DOC_END ASSIGN STRING {
-      state.current().doc_end = yylval.y_str;
+        state.current().doc_end = yylval.y_str;
     }
     ;
 
 %%
+
 void yy::language_parser::error(const yy::language_parser::location_type &loc,
                                 const std::string &message)
 {
