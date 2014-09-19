@@ -10,7 +10,7 @@
 #define YY_DECL                                         \
     yy::language_parser::token_type                     \
     yylex(yy::language_parser::semantic_type *yylval,   \
-        yy::language_parser::location_type *yyloc,      \
+          yy::language_parser::location_type *yyloc,    \
           mksrc::ParserState &state)
 YY_DECL;
 
@@ -33,15 +33,15 @@ namespace mksrc {
         void error(const std::string &message);
         
         std::string &file();
-		
-		int getSuffixIndex() const;
-		void setSuffixIndex(int index);
+        
+        int getSuffixIndex() const;
+        void setSuffixIndex(int index);
     protected:
         std::string m_FileName;;
         
         bool m_TraceScanning, m_TraceParsing;
         std::vector<Language> m_Languages;
-		int m_SuffixIndex;
+        int m_SuffixIndex;
     };
 }
 

@@ -58,9 +58,9 @@ std::vector<std::string> util::ListDirectory(const std::string &dirname) {
         while((entry = readdir(dir)) != nullptr) {
             if(strcmp(".", entry->d_name) != 0 &&
                strcmp("..", entry->d_name) != 0)
-            {
-                files.emplace_back(util::Join(dirname, entry->d_name));
-            }
+                {
+                    files.emplace_back(util::Join(dirname, entry->d_name));
+                }
         }
     }
     return files;
@@ -76,10 +76,10 @@ std::size_t util::ListDirectory(const std::string &dirname,
         while((entry = readdir(dir)) != nullptr) {
             if(strcmp(".", entry->d_name) != 0 &&
                strcmp("..", entry->d_name) != 0)
-            {
-                file_list.emplace_back(util::Join(dirname, entry->d_name));
-                added += 1;
-            }
+                {
+                    file_list.emplace_back(util::Join(dirname, entry->d_name));
+                    added += 1;
+                }
         }
     }
     return added;

@@ -8,36 +8,36 @@
 
 namespace mksrc {
     struct Language {
-		typedef std::vector<std::string> StringList;
-		typedef std::map<int, StringList> SuffixMap;
-		typedef std::map<int, std::string> BodyFileMap;
-		
+        typedef std::vector<std::string> StringList;
+        typedef std::map<int, StringList> SuffixMap;
+        typedef std::map<int, std::string> BodyFileMap;
+        
         std::string shortname, longname;
         std::string doctype;
-		SuffixMap suffix;
+        SuffixMap suffix;
         std::string comment_line, comment_start, comment_fill, comment_end;
         std::string doc_line, doc_start, doc_fill, doc_end;
-		BodyFileMap body;
-		
-		void addSuffix(int index, const std::string &suffix);
+        BodyFileMap body;
+        
+        void addSuffix(int index, const std::string &suffix);
     };
-	
+    
     template <typename Insertable>
     Insertable & operator<<(Insertable &out,
                             const Language::SuffixMap &strmap)
     {
         out << "[";
-		for(const std::pair<int, std::vector<std::string>> &pair : strmap) {
-			const std::vector<std::string> &list = pair.second;
-			auto len = list.size();
-			out << pair.first << ":[";
-			for(decltype(len) i = 0; i < len - 1; ++i) {
-				out << "\"" << list[i] << "\", ";
-			}
-			out << "\"" << list[len - 1] << "\"],";
-		}
-		out << "]";
-		return out;
+        for(const std::pair<int, std::vector<std::string>> &pair : strmap) {
+            const std::vector<std::string> &list = pair.second;
+            auto len = list.size();
+            out << pair.first << ":[";
+            for(decltype(len) i = 0; i < len - 1; ++i) {
+                out << "\"" << list[i] << "\", ";
+            }
+            out << "\"" << list[len - 1] << "\"],";
+        }
+        out << "]";
+        return out;
     }
     
 # define MKSRC_OUT_ASSIGN(name, strval) \

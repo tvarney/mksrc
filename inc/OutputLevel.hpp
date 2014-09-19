@@ -4,12 +4,12 @@
 
 namespace mksrc {
     struct OutputLevel {
-	enum Value {
-	    Quiet   = 0,
-	    Brief   = 1,
-	    Normal  = 2,
-	    Verbose = 3
-	};
+        enum Value {
+            Quiet   = 0,
+            Brief   = 1,
+            Normal  = 2,
+            Verbose = 3
+        };
     };
 }
 

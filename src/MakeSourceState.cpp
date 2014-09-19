@@ -29,37 +29,37 @@ MakeSourceState::MakeSourceState() {
 bool MakeSourceState::parse(int argc, char **argv) {
     int option_ind = 0, c;
     while(true) {
-	c = getopt_long(argc, argv, short_options, long_options, &option_ind);
-	if(c == -1) {
-	    break;
-	}
-	
-	switch(c) {
-	case 'v':
-	    m_OutputLevel = OutputLevel::Verbose;
-	    break;
-	case 'b':
-	    m_OutputLevel = OutputLevel::Brief;
-	    break;
-	case 'q':
-	    m_OutputLevel = OutputLevel::Quiet;
-	    break;
-	case 'L':
-	    m_LicenseName = optarg;
-	    break;
-	case 'D':
-	    m_DocstyleName = optarg;
-	    break;
-	case 'B':
-	    m_DoBody = false;
-	    break;
-	default:
-	    return false;
-	}
+        c = getopt_long(argc, argv, short_options, long_options, &option_ind);
+        if(c == -1) {
+            break;
+        }
+        
+        switch(c) {
+        case 'v':
+            m_OutputLevel = OutputLevel::Verbose;
+            break;
+        case 'b':
+            m_OutputLevel = OutputLevel::Brief;
+            break;
+        case 'q':
+            m_OutputLevel = OutputLevel::Quiet;
+            break;
+        case 'L':
+            m_LicenseName = optarg;
+            break;
+        case 'D':
+            m_DocstyleName = optarg;
+            break;
+        case 'B':
+            m_DoBody = false;
+            break;
+        default:
+            return false;
+        }
     }
     
     for(int i = optind; i < argc; ++i) {
-	m_FileNames.push_back(argv[i]);
+        m_FileNames.push_back(argv[i]);
     }
     
     return true;
